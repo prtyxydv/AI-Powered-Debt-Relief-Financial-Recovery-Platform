@@ -12,11 +12,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from sqlalchemy import text
+from database import engine
+
+# Root Route
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to FinRelief AI API"}
+    return {"message": "Welcome to FinRelief AI 🚀", "status": "running"}
 
-# Health check endpoint
-@app.get("/health")
-def health_check():
-    return {"status": "healthy"}
+# Test Database Connection
+@app.get("/test-db")
+def test_db():
+    with engine.connect() as connection:
+        connection.execute(text("SELECT 1"))
+    return {"database_status": "Connected ✅"}
