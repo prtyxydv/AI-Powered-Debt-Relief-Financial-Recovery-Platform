@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import Login from './Login';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
+import FinancialHealth from './FinancialHealth';
+import SettlementPredictor from './SettlementPredictor';
+import NegotiationEmail from './NegotiationEmail';
+import KnowYourRights from './KnowYourRights';
 import './App.css';
 
 function App() {
@@ -17,10 +21,15 @@ function App() {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="main-content">
         {activeTab === 'dashboard' && <Dashboard />}
-        {/* Placeholders for other tabs */}
-        {activeTab !== 'dashboard' && (
+        {activeTab === 'financial-health' && <FinancialHealth />}
+        {activeTab === 'settlement-predictor' && <SettlementPredictor />}
+        {activeTab === 'negotiation-email' && <NegotiationEmail />}
+        {activeTab === 'know-your-rights' && <KnowYourRights />}
+        
+        {/* Placeholder for history tab */}
+        {activeTab === 'history' && (
           <div style={{ padding: '3rem', color: '#fff' }}>
-            <h2>{activeTab.replace('-', ' ').toUpperCase()}</h2>
+            <h2>HISTORY</h2>
             <p>This page is under construction...</p>
           </div>
         )}

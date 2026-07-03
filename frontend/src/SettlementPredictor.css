@@ -1,0 +1,157 @@
+.sp-container {
+  flex: 1;
+  background-color: #0b1120;
+  padding: 2rem 3rem;
+  overflow-y: auto;
+  color: var(--text-primary);
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.sp-header {
+  margin-bottom: 2rem;
+}
+
+.sp-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sp-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.loan-card-section {
+  margin-bottom: 2rem;
+}
+
+.loan-estimate-card {
+  background-color: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: max-content;
+  min-width: 280px;
+}
+
+.loan-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.loan-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.risk-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.risk-badge.medium {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.settlement-percent h2 {
+  color: #10b981;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.settlement-percent p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.settlement-amount h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.settlement-amount p {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.savings-badge {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.ai-strategy-section {
+  background-color: rgba(30, 41, 59, 0.3);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.strategy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.strategy-content {
+  background-color: rgba(15, 23, 42, 0.6);
+  border-radius: 8px;
+  padding: 1.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+.strategy-content h4 {
+  color: #cbd5e1;
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.strategy-content h4:first-child {
+  margin-top: 0;
+}
+
+.strategy-content ul, .strategy-content ol {
+  margin: 0 0 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.strategy-content li {
+  margin-bottom: 0.25rem;
+}
+
+.timeline {
+  margin-top: 2rem;
+  font-weight: 600;
+}
