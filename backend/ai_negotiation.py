@@ -24,16 +24,18 @@ def _call_gemini(prompt: str) -> str:
         print(f"Gemini API error: {e}")
         return None
 
-def generate_negotiation_strategy(loan_details, user_income, hardship_reason, tone="professional"):
+def generate_negotiation_strategy(user, loans, financial_health, settlement_data, tone="professional"):
     prompt = f"""
     You are an expert financial negotiator. Draft a {tone} debt settlement negotiation letter 
-    for a borrower with the following details:
+    and strategy for a borrower with the following details:
     
-    Lender: {loan_details.lender_name}
-    Outstanding Debt: ${loan_details.outstanding_amount}
-    Months Overdue: {loan_details.overdue_months}
-    Hardship Reason: {hardship_reason}
-    Borrower Monthly Income: ${user_income}
+    Borrower Monthly Income: ${user.monthly_income}
+    Total Outstanding Debt: ${financial_health['total_outstanding']}
+    Total Loans: {financial_health['total_loans']}
+    Financial Stress Level: {financial_health['stress_level']}
+    
+    Settlement Details:
+    {json.dumps(settlement_data, indent=2)}
     
     Provide:
     1. A short internal negotiation strategy for the borrower.
@@ -51,16 +53,24 @@ def generate_negotiation_strategy(loan_details, user_income, hardship_reason, to
         "source": "gemini-ai"
     }
 
-def fallback_strategy(loan_details, hardship_reason):
+def fallback_strategy(user, loans, financial_health, settlement_data):
     """Fallback logic when AI fails or no API key is set."""
     strategy = "Start by offering 30% of the balance in a lump sum. Explain your financial hardship clearly."
+    
+    # Generate letter for the highest priority/first loan in settlement data if available
+    target_lender = "Your Lender"
+    target_amount = financial_health['total_outstanding']
+    if settlement_data and len(settlement_data) > 0:
+        target_lender = settlement_data[0]['lender_name']
+        target_amount = settlement_data[0]['outstanding_amount']
+        
     letter = f"""
-    Subject: Settlement Offer for Account with {loan_details.lender_name}
+    Subject: Settlement Offer for Account with {target_lender}
 
     To Whom It May Concern,
 
-    I am writing regarding my outstanding debt of ${loan_details.outstanding_amount}. 
-    Due to unforeseen financial difficulties ({hardship_reason}), I am unable to meet the standard payments.
+    I am writing regarding my outstanding debt of ${target_amount}. 
+    Due to unforeseen financial difficulties, I am unable to meet the standard payments.
 
     I would like to propose a settlement of 40% of the balance to resolve this account entirely. 
     Please let me know if we can reach an agreement.

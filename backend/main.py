@@ -26,3 +26,7 @@ def test_db():
     with engine.connect() as connection:
         connection.execute(text("SELECT 1"))
     return {"database_status": "Connected ✅"}
+
+# Include routers
+from routers import router as ai_router
+app.include_router(ai_router)
