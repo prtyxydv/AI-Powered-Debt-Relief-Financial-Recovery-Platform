@@ -1,5 +1,6 @@
 import os
 import json
+import importlib
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -12,7 +13,7 @@ def _call_gemini(prompt: str) -> str:
         return None # Will fall through to fallback
         
     try:
-        import google.generativeai as genai
+        genai = importlib.import_module("google.generativeai")
         genai.configure(api_key=GOOGLE_API_KEY)
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(prompt)
