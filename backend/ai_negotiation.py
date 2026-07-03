@@ -1,22 +1,29 @@
 import os
-import google.generativeai as genai
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# Configure Gemini
-api_key = os.getenv("GEMINI_API_KEY")
-if api_key:
-    genai.configure(api_key=api_key)
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+
+def _call_gemini(prompt: str) -> str:
+    """Call Google Gemini API if key is available, otherwise use rule-based fallback."""
+    if not GOOGLE_API_KEY:
+        return None # Will fall through to fallback
+        
+    try:
+        import google.generativeai as genai
+        genai.configure(api_key=GOOGLE_API_KEY)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+        response = model.generate_content(prompt)
+        return response.text
+    except ImportError:
+        return None
+    except Exception as e:
+        print(f"Gemini API error: {e}")
+        return None
 
 def generate_negotiation_strategy(loan_details, user_income, hardship_reason, tone="professional"):
-    """
-    Generates a negotiation letter using Google Gemini AI.
-    Includes fallback logic if AI is unavailable.
-    """
-    if not api_key:
-        return fallback_strategy(loan_details, hardship_reason)
-        
     prompt = f"""
     You are an expert financial negotiator. Draft a {tone} debt settlement negotiation letter 
     for a borrower with the following details:
@@ -32,19 +39,16 @@ def generate_negotiation_strategy(loan_details, user_income, hardship_reason, to
     2. The email/letter draft to send to the lender.
     """
     
-    try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(prompt)
-        content = response.text
-        
-        return {
-            "strategy": "AI Generated Strategy (See Letter)",
-            "letter": content,
-            "source": "gemini-ai"
-        }
-    except Exception as e:
-        print(f"AI Generation Failed: {e}")
+    content = _call_gemini(prompt)
+    
+    if content is None:
         return fallback_strategy(loan_details, hardship_reason)
+        
+    return {
+        "strategy": "AI Generated Strategy (See Letter)",
+        "letter": content,
+        "source": "gemini-ai"
+    }
 
 def fallback_strategy(loan_details, hardship_reason):
     """Fallback logic when AI fails or no API key is set."""
