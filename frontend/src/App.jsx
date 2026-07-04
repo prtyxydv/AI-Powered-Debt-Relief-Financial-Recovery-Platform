@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Login from './Login';
-import Sidebar from './Sidebar';
-import Dashboard from './Dashboard';
-import FinancialHealth from './FinancialHealth';
-import SettlementPredictor from './SettlementPredictor';
-import NegotiationEmail from './NegotiationEmail';
-import KnowYourRights from './KnowYourRights';
+import Login from './pages/Login';
+import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard';
+import FinancialHealth from './pages/FinancialHealth';
+import SettlementPredictor from './pages/SettlementPredictor';
+import NegotiationEmail from './pages/NegotiationEmail';
+import KnowYourRights from './pages/KnowYourRights';
 import './App.css';
 
 function App() {
